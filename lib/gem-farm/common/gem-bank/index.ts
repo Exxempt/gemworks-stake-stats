@@ -69,7 +69,7 @@ export class GemBank extends GemBankClient {
         ]
       : [];
     const pdas = await this.bankProgram.account.vault.all(filter);
-    console.log(`found a total of ${pdas.length} vault accounts.`);
+    //console.log(`found a total of ${pdas.length} vault accounts.`);
     return pdas;
   } 
 
@@ -85,7 +85,7 @@ export class GemBank extends GemBankClient {
             ]
             : [];
         const pdas = await this.bankProgram.account.gemDepositReceipt.all(filter);
-        console.log(`found a total of ${pdas.length} mints staked`);
+        //console.log(`found a total of ${pdas.length} mints staked`);
         return pdas;
     }
 

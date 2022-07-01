@@ -12,6 +12,7 @@ const results: { wallet: string; mint: string }[] = [];
       const allVaults = await bankClient.fetchAllVaultPDAs(
         new PublicKey(process.env.GEMFARM_FARM_ID as unknown as PublicKey)
       );
+      console.log("staked mints and owners for farm:",process.env.GEMFARM_FARM_ID as unknown as PublicKey)
       for (var Vault of allVaults) {
         if (Vault.account.gemBoxCount.toNumber() !== 0) {
           const foundGDRs = await bankClient.fetchAllGdrPDAs(Vault.publicKey);
@@ -22,9 +23,9 @@ const results: { wallet: string; mint: string }[] = [];
           for (var mi of mints) {
             results.push({ wallet: owner, mint: mi.mint.toBase58() });
           }
-          console.log(results)
         }
       }
+      console.log(results)
     } catch (e) {
       console.log('error')
     }
