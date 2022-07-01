@@ -2,13 +2,8 @@
   "name": "gemworks-stake-stats",
   "version": "1.0.0",
   "description": "get all vaults and staked gems for a bank",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "gemstats.ts",
   "author": "Exxempt",
-  "license": "MIT",
   "dependencies": {
     "@solana/web3.js": "^1.44.3",
     "@gemworks/gem-farm-ts": "^0.24.1",
