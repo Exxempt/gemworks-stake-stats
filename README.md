@@ -4,13 +4,14 @@ Grab all Vaults for a Bank and retrieve all staked gems by mint address
 
 ## install
 
-
 git clone this repository, then switch to the new folder and execute
 
 ```
 npm install
 ```
+## create .env
 
+using .env.template create a .env with RPC and FARM ID
 
 ## how to use
 
