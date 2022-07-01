@@ -1,31 +1,31 @@
 import { initGemBank } from "./lib/gem-farm/common/gem-bank"
 import { PublicKey } from "@solana/web3.js"
+require('dotenv').config({ path: './.env' })
 
-const {clusterApiUrl, Connection} = require("@solana/web3.js");
-let connection = new Connection(clusterApiUrl('mainnet-beta'));
 const solanaWeb3 =  require("@solana/web3.js");
-const Solana = new solanaWeb3.Connection("https://long-empty-moon.solana-mainnet.quiknode.pro/69b0097f09a2712daaf427aec6f45f9e42e1702d/");
+const solana = new solanaWeb3.Connection(process.env.SOLANA_RPC_HOST_MAINNET_BETA);
+const results: { wallet: string; mint: string }[] = [];
 
 (async () => {
     try {
-      const bankClient = await initGemBank(Solana);
+      const bankClient = await initGemBank(solana);
       const allVaults = await bankClient.fetchAllVaultPDAs(
-        new PublicKey("i7Z46YuSiej4LMYRHvhffH5MmuteuHUjFaVVqVfG5TP")
+        new PublicKey(process.env.GEMFARM_FARM_ID as unknown as PublicKey)
       );
       for (var Vault of allVaults) {
         if (Vault.account.gemBoxCount.toNumber() !== 0) {
           const foundGDRs = await bankClient.fetchAllGdrPDAs(Vault.publicKey);
-          console.log(Vault.account.owner.toBase58());
+          const owner = Vault.account.owner.toBase58();
           const mints = foundGDRs.map((gdr: any) => {
             return { mint: gdr.account.gemMint };
           });
-          console.log("mints");
           for (var mi of mints) {
-            console.log(mi.mint.toBase58());
+            results.push({ wallet: owner, mint: mi.mint.toBase58() });
           }
+          console.log(results)
         }
       }
     } catch (e) {
-      // Deal with it later
+      console.log('error')
     }
   })();

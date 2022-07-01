@@ -69,9 +69,26 @@ export class GemBank extends GemBankClient {
         ]
       : [];
     const pdas = await this.bankProgram.account.vault.all(filter);
-    console.log(`found a total of ${pdas.length} vault PDAs`);
+    console.log(`found a total of ${pdas.length} vault accounts.`);
     return pdas;
   } 
+
+  async fetchAllGdrPDAs(vault: PublicKey) {
+        const filter = vault
+            ? [
+                {
+                    memcmp: {
+                        offset: 8,
+                        bytes: vault.toBase58(),
+                    },
+                },
+            ]
+            : [];
+        const pdas = await this.bankProgram.account.gemDepositReceipt.all(filter);
+        console.log(`found a total of ${pdas.length} mints staked`);
+        return pdas;
+    }
+
 
   async setVaultLockWallet(
     bank: PublicKey,
