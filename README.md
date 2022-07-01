@@ -1,6 +1,6 @@
 ## what it does
 
-Grab all Vaults for a Bank and retrieve all staked gems by mint address
+grab all vaults for a Bank and retrieve all staked gems by mint address & owner
 
 ## install
 
